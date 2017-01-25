@@ -14,6 +14,7 @@ struct {
 static struct proc *initproc;
 
 int nextpid = 1;
+int forkCount = 0;
 extern void forkret(void);
 extern void trapret(void);
 
@@ -156,7 +157,18 @@ fork(void)
   pid = np->pid;
   np->state = RUNNABLE;
   safestrcpy(np->name, proc->name, sizeof(proc->name));
+
+  //If the fork was successful, then increment the forkCount variable.
+  forkCount++;
+
   return pid;
+}
+
+// Return the curent value of the forkCount variable.
+int
+getforkcount(void)
+{
+  return forkCount;
 }
 
 // Exit the current process.  Does not return.

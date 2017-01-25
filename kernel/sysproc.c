@@ -13,6 +13,12 @@ sys_fork(void)
 }
 
 int
+sys_getforkcount(void)
+{
+  return getforkcount();
+}
+
+int
 sys_exit(void)
 {
   exit();
