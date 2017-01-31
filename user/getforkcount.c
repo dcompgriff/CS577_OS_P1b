@@ -5,7 +5,7 @@
 int main(void){
   //Get the fork count by making the getforkcount() system call.
   int forkCount = getforkcount();
-  printf(1, "%d", forkCount);
+  printf(1, "%d\n", forkCount);
   exit();
 }
 
