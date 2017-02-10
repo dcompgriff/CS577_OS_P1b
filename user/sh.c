@@ -168,9 +168,11 @@ main(void)
     }
     if(fork1() == 0)
       runcmd(parsecmd(buf));
-    int exitStatus = 10;
+    int exitStatus = -1;
     int pid = wait(&exitStatus);
-    printf(2, "[pid %d exited with status %d]\n", pid, exitStatus);
+    if(exitStatus != 0){
+        printf(2, "[pid %d exited with status %d]\n", pid, exitStatus);
+    }
 
   }
   exit(0);

@@ -16,7 +16,9 @@ USER_PROGS := \
 	tester\
 	wc\
 	zombie\
-	getforkcount
+	getforkcount\
+	true\
+	false
 
 USER_PROGS := $(addprefix user/, $(USER_PROGS))
 
@@ -25,7 +27,8 @@ USER_LIBS := \
 	ulib.o\
 	usys.o\
 	printf.o\
-	umalloc.o
+	umalloc.o\
+	_start.o
 
 USER_LIBS := $(addprefix user/, $(USER_LIBS))
 
@@ -70,7 +73,7 @@ USER_LDFLAGS += -nostdlib
 USER_LDFLAGS += --omagic
 
 # where program execution should begin
-USER_LDFLAGS += --entry=main
+USER_LDFLAGS += --entry=_start
 
 # location in memory where the program will be loaded
 USER_LDFLAGS += --section-start=.text=0x0
