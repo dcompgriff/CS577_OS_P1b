@@ -175,7 +175,7 @@ getforkcount(void)
 // An exited process remains in the zombie state
 // until its parent calls wait() to find out it exited.
 void
-exit(void)
+exit(int exitStatus)
 {
   struct proc *p;
   int fd;
@@ -210,6 +210,9 @@ exit(void)
 
   // Jump into the scheduler, never to return.
   proc->state = ZOMBIE;
+  // Set proc exit status to exitStatus.
+  proc->exitStatus = exitStatus;
+
   sched();
   panic("zombie exit");
 }
@@ -217,7 +220,7 @@ exit(void)
 // Wait for a child process to exit and return its pid.
 // Return -1 if this process has no children.
 int
-wait(void)
+wait(int* exitStatus)
 {
   struct proc *p;
   int havekids, pid;
@@ -242,6 +245,8 @@ wait(void)
         p->name[0] = 0;
         p->killed = 0;
         release(&ptable.lock);
+        // Set exit status of the process.
+        *exitStatus = p->exitStatus;
         return pid;
       }
     }

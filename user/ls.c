@@ -32,12 +32,14 @@ ls(char *path)
   
   if((fd = open(path, 0)) < 0){
     printf(2, "ls: cannot open %s\n", path);
+    exit(1);
     return;
   }
   
   if(fstat(fd, &st) < 0){
     printf(2, "ls: cannot stat %s\n", path);
     close(fd);
+    exit(1);
     return;
   }
   
@@ -77,9 +79,9 @@ main(int argc, char *argv[])
 
   if(argc < 2){
     ls(".");
-    exit();
+    exit(0);
   }
   for(i=1; i<argc; i++)
     ls(argv[i]);
-  exit();
+  exit(0);
 }

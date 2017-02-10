@@ -21,14 +21,22 @@ sys_getforkcount(void)
 int
 sys_exit(void)
 {
-  exit();
+  int exitStatus;
+
+  if(argint(0, &exitStatus) < 0)
+    return -1;
+  exit(exitStatus);
   return 0;  // not reached
 }
 
 int
 sys_wait(void)
 {
-  return wait();
+  int exitStatusAddress;
+
+  if(argint(0, &exitStatusAddress) < 0)
+    return -1;
+  return wait((int*)exitStatusAddress);
 }
 
 int

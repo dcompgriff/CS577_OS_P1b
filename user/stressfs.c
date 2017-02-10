@@ -31,7 +31,8 @@ main(int argc, char *argv[])
     printf(fd, "%d\n", i);
   close(fd);
 
-  wait();
+  int returnStatus = -1;
+  wait(&returnStatus);
   
-  exit();
+  exit(returnStatus);
 }

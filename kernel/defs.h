@@ -96,7 +96,7 @@ int             pipewrite(struct pipe*, char*, int);
 
 // proc.c
 struct proc*    copyproc(struct proc*);
-void            exit(void);
+void            exit(int);
 int             fork(void);
 int		getforkcount(void);
 int             growproc(int);
@@ -107,7 +107,7 @@ void            scheduler(void) __attribute__((noreturn));
 void            sched(void);
 void            sleep(void*, struct spinlock*);
 void            userinit(void);
-int             wait(void);
+int             wait(int*);
 void            wakeup(void*);
 void            yield(void);
 
@@ -135,6 +135,7 @@ char*           strncpy(char*, const char*, int);
 // syscall.c
 int             argint(int, int*);
 int             argptr(int, char**, int);
+int             argintptr(int, int**);
 int             argstr(int, char**);
 int             fetchint(struct proc*, uint, int*);
 int             fetchstr(struct proc*, uint, char**);
